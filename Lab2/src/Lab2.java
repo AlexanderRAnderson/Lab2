@@ -31,7 +31,6 @@ public class Lab2 {
             oldY = y;
             x = x - h;
             y = y - g;
-            System.out.println("Iteration: " + count + " " + Math.abs(x - oldX) + " " + Math.abs(y - oldY));
             A = secondDerivativeXFunction(x,y);
             C = secondDerivativeYFunction(x,y);
         }
