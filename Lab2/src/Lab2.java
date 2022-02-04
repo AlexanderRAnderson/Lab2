@@ -2,32 +2,39 @@ public class Lab2 {
     private static final double EPSILON = .00001;
     private static int count = 0;
 
-   public static double function(double x) {
-       return (9 * Math.pow(x,6) + 3 * Math.pow(x,5) + 4 * Math.pow(x,4) + 2 * Math.pow(x,3) + 2 * Math.pow(x,2) + 9 * x + 1);
+   public static double firstDerivativeFunction(double x, double y) {
+       return (4 * Math.pow(x,3) - y - 1);
    }
 
-   public static double derivativeFunction(double x) {
-       return (54 * Math.pow(x,5) + 15 * Math.pow(x,4) + 16 * Math.pow(x,3) + 6 * Math.pow(x,2) + 4 * Math.pow(x,1) + 9);
+   public static double secondDerivativeFunction(double x, double y) {
+       return (12 * Math.pow(x,2));
    }
 
-    public static void newtonRaphson(double x) {
-        double h = function(x) / derivativeFunction(x);
-        while (Math.abs(h) >= EPSILON && count <= 2000) {
-            h = function(x) / derivativeFunction(x);
+    public static double findMinMax(double x, double y) {
+        double h = firstDerivativeFunction(x,y) / secondDerivativeFunction(x,y);
+        while (Math.abs(h) >= EPSILON && count <= 10000) {
+            h = firstDerivativeFunction(x,y) / secondDerivativeFunction(x,y);
             count++;
             double guessedX = x;
             x = x - h;
-            System.out.println("Iteration: " + count + " |Guessed x value: " + Math.round(guessedX * 100.0) / 100.0
-                    + " |Derived Root: " + Math.round(x * 100.0) / 100.0 + " |Polynomial Value: " + Math.round(function(x) * 100.0) / 100.0);
+//            System.out.println("Iteration: " + count + " |Guessed x value: " + Math.round(guessedX * 100.0) / 100.0
+//                    + " |Derived Root: " + Math.round(x * 100.0) / 100.0 + " |Polynomial Value: " + Math.round(firstDerivativeFunction(x,y) * 100.0) / 100.0);
         }
-        if(count >= 2000) {
-            System.out.println("Roots not found");
+        if(count >= 10000) {
+            return -1;
         }
+        return x;
     }
 
     public static void main(String[] args) {
-        double x0 = 300;
-        newtonRaphson(x0);
+        double x0 = 6;
+        double y0 = 5;
+        double value = findMinMax(x0,y0);
+        if(value == -1){
+            System.out.println("Infinity");
+        } else {
+            System.out.println("Minimum or maximum value for z: " + value);
+        }
     }
 
 }
